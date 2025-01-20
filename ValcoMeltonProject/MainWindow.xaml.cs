@@ -497,6 +497,8 @@ namespace ValcoMeltonProject
 
                     check = numKeyPresses;
 
+                    RemoveLeadingZeroes(displayString);
+
                     DecimalTextBox.Text = displayString;
                     
                     textBox.Focus();
@@ -504,6 +506,43 @@ namespace ValcoMeltonProject
                 }
 
             }
+
+        }
+
+        private void RemoveLeadingZeroes(string decimalDisplay)
+        {
+            string nonZeroNums = "123456789";
+
+            //get nums before and after the decimal
+
+            string[] splitDecimal = decimalDisplay.Split(".");
+
+            string beforeDecimal = splitDecimal[0];
+            string afterDecimal = splitDecimal[1];
+
+            //remove leading zeroes if needed
+
+            if (beforeDecimal.Any(c => nonZeroNums.Contains(c)))
+            {
+                char c = beforeDecimal.FirstOrDefault();
+
+                while (c == '0')
+                {
+                    beforeDecimal = beforeDecimal.Remove(0, 1);
+                    c = beforeDecimal.FirstOrDefault();
+                }
+            }
+
+            //re set up what should be displayed in the decimal text box
+
+            decimalDisplay = beforeDecimal + "." + afterDecimal;
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                // This code runs after the TextBox has updated its text
+                DecimalTextBox.Text = decimalDisplay;
+                // Use the updated text here
+            }));            
 
         }
 
@@ -558,7 +597,6 @@ namespace ValcoMeltonProject
                     int insertDec = decBoxList.Count - decimalPlace;
 
                     decimalDisplay = decimalDisplay.Insert(insertDec, ".");
-
 
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
