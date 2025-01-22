@@ -509,9 +509,16 @@ namespace ValcoMeltonProject
                     }
 
                     DecimalTextBox.Text = displayString;
-                    
-                    textBox.Focus();
-                    textBox.CaretIndex = textBox.Text.Length;
+
+                    //prevent cursor from jumping to other textbox
+
+                    var focusedTextBox = Keyboard.FocusedElement;
+
+                    if (focusedTextBox == DecimalTextBox)
+                    {
+                        textBox.Focus();
+                        textBox.CaretIndex = textBox.Text.Length;
+                    }
                 }
 
             }
