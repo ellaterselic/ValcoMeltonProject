@@ -23,6 +23,9 @@ namespace ValcoMeltonProject
         public int decimalPlace = 2;
         public bool viewIsEnlarged = false;
 
+        //handle backspaces
+        string backspaceDisplay = "";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -444,7 +447,7 @@ namespace ValcoMeltonProject
         {
             var textBox = sender as TextBox;
 
-            var textBoxTest = DecimalTextBox;
+            //var textBoxTest = DecimalTextBox;
 
             if (feedback != null)
             {
@@ -497,7 +500,13 @@ namespace ValcoMeltonProject
 
                     check = numKeyPresses;
 
-                    RemoveLeadingZeroes(displayString);
+                    displayString = RemoveLeadingZeroes(displayString);
+
+                    if (backspaceDisplay != "")
+                    {
+                        displayString = backspaceDisplay;
+                        backspaceDisplay = "";
+                    }
 
                     DecimalTextBox.Text = displayString;
                     
@@ -509,7 +518,7 @@ namespace ValcoMeltonProject
 
         }
 
-        private void RemoveLeadingZeroes(string decimalDisplay)
+        private string RemoveLeadingZeroes(string decimalDisplay)
         {
             string nonZeroNums = "123456789";
 
@@ -537,12 +546,14 @@ namespace ValcoMeltonProject
 
             decimalDisplay = beforeDecimal + "." + afterDecimal;
 
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                // This code runs after the TextBox has updated its text
-                DecimalTextBox.Text = decimalDisplay;
-                // Use the updated text here
-            }));            
+            return decimalDisplay;
+
+            //Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    // This code runs after the TextBox has updated its text
+            //    DecimalTextBox.Text = decimalDisplay;
+            //    // Use the updated text here
+            //}));            
 
         }
 
@@ -582,7 +593,7 @@ namespace ValcoMeltonProject
                     numKeyPresses--;
                     decBoxList.RemoveAt(decBoxList.Count - 1);
 
-                    if (decBoxList.Count == 2)
+                    if (decBoxList.Count == decimalPlace)
                     {
                         decBoxList.Insert(0, '0');
                     }
@@ -598,13 +609,15 @@ namespace ValcoMeltonProject
 
                     decimalDisplay = decimalDisplay.Insert(insertDec, ".");
 
-                    Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        // This code runs after the TextBox has updated its text
-                        DecimalTextBox.Text = decimalDisplay;
-                        // Use the updated text here
-                    }));
-                    
+                    //Dispatcher.BeginInvoke(new Action(() =>
+                    //{
+                    //    // This code runs after the TextBox has updated its text
+                    //    DecimalTextBox.Text = decimalDisplay;
+                    //    // Use the updated text here
+                    //}));
+
+                    backspaceDisplay = decimalDisplay;
+                 
                 }
             }
         }
