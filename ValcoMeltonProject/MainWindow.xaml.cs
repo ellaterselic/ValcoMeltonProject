@@ -25,7 +25,6 @@ namespace ValcoMeltonProject
 
         //handle backspaces
         string backspaceDisplay = "";
-
         public MainWindow()
         {
             InitializeComponent();
@@ -63,16 +62,12 @@ namespace ValcoMeltonProject
 
             if (!containsNonNumbers)
             {
-                //this is to reset the textbox color if it previously
-                //had unwanted characters
                 feedback.Text = " ";
-                //SetBorderBlack(textBox);
                 return;
 
             } else
             {
                 feedback.Text = "Please enter integers only";
-                //SetBorderRed(textBox);
             }
         }
 
@@ -108,7 +103,6 @@ namespace ValcoMeltonProject
                             }
 
                             DecimalTextBox.Text = newDisplayText;
-                            // Call the TextChanged method directly
                             numKeyPresses = 0;
                             check = 0;
                             DecimalTextBox_TextChanged(DecimalTextBox, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None));
@@ -125,7 +119,7 @@ namespace ValcoMeltonProject
             
         }
 
-            private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Slider slider = sender as Slider;
             if (slider != null)
@@ -148,8 +142,6 @@ namespace ValcoMeltonProject
         private void ConversionInputChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-
-            //check for unwanted characters
 
             bool containsNonNumbers = ContainsNonNumbers(textBox.Text, true);
 
@@ -447,8 +439,6 @@ namespace ValcoMeltonProject
         {
             var textBox = sender as TextBox;
 
-            //var textBoxTest = DecimalTextBox;
-
             if (feedback != null)
             {
                 if (textBox != null)
@@ -553,14 +543,7 @@ namespace ValcoMeltonProject
 
             decimalDisplay = beforeDecimal + "." + afterDecimal;
 
-            return decimalDisplay;
-
-            //Dispatcher.BeginInvoke(new Action(() =>
-            //{
-            //    // This code runs after the TextBox has updated its text
-            //    DecimalTextBox.Text = decimalDisplay;
-            //    // Use the updated text here
-            //}));            
+            return decimalDisplay;           
 
         }
 
@@ -615,13 +598,6 @@ namespace ValcoMeltonProject
                     int insertDec = decBoxList.Count - decimalPlace;
 
                     decimalDisplay = decimalDisplay.Insert(insertDec, ".");
-
-                    //Dispatcher.BeginInvoke(new Action(() =>
-                    //{
-                    //    // This code runs after the TextBox has updated its text
-                    //    DecimalTextBox.Text = decimalDisplay;
-                    //    // Use the updated text here
-                    //}));
 
                     backspaceDisplay = decimalDisplay;
                  

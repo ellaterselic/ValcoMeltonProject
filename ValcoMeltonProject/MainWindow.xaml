@@ -171,7 +171,6 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!--row 1-->
                 <TextBox Name="NumToBeConverted" 
                 TextChanged="ConversionInputChanged"
                 Margin="5"
@@ -188,8 +187,6 @@
                 IsReadOnly="true"
                 Margin="5"
                 Grid.Row="0" Grid.Column="2" />
-
-                <!--row 2-->
 
                 <ComboBox x:Name="FromUnit"
                   FontSize="12"
@@ -285,12 +282,9 @@
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right"  
                 Grid.Row="0" Grid.Column="3"/>
-            
+
         </StackPanel>
 
     </Grid>
-
-
-
 
 </Window>
